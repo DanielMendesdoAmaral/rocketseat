@@ -1,5 +1,70 @@
 html, body {
-    margin: 0;
+    margin: 20px;
     padding: 0;
-    box-sizing: border-box;
+    background-color: #333333;
+}
+
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 5px;
+    text-align: center;
+}
+
+
+
+
+
+.green {
+    color: greenyellow;
+    text-shadow: 1px 1px 10px greenyellow;
+}
+
+.flexbox {
+    height: 100vh;
+    margin: auto;
+    width: 48%;
+}
+
+.df {
+    display: flex;
+}
+
+.green-small {
+    background-color: greenyellow;
+    box-shadow: 1px 1px 10px greenyellow;
+    height: 140px;
+    width: 120px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.green-med {
+    background-color: greenyellow;
+    box-shadow: 1px 1px 10px greenyellow;
+    width: 260px;
+    height: 140px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.green-large {
+    background-color: greenyellow;
+    box-shadow: 1px 1px 10px greenyellow;
+    width: 540px;
+    height: 140px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+
+
+
+
+.purple {
+    color: blueviolet;
+    text-shadow: 1px 1px 10px blueviolet;
+}
+
+.grid-layout {
+    height: 100vh;
 }
