@@ -1,0 +1,106 @@
+/* 1----- O grid trabalha com duas dimensões (x, y), ao passo que o flexbox trabalha apenas com uma (x ou y). Portanto, as vezes se faz necessário o uso de um ou de outro, ou dos dois. Um pode complementar o outro. */
+
+
+/* 2----- PROPRIEDADES
+
+_____ Container _____ 
+
+. display:grid -> Inicia o grid.
+. grid-template-columns -> Fatia as colunas do grid.
+. grid-template-rows -> Fatia as linhas do grid.
+. grid-gap -> Espaçamentos.
+    . grid-column-gap
+    . grid-row-gap
+.grid-template-areas -> Delimita as áreas
+
+_____ Itens _____
+
+. grid-column -> Posicionamento do item coluna
+    . grid-column-start
+    . grid-column-end
+. grid-row -> Posicionamento do item linha
+    . grid-row-start
+    . grid-row-end
+. grid-area -> Onde fica nossa área com o grid-template-areas
+
+_____ Alinhamento _____
+
+Justify = eixo x
+Align = eixo y
+
+. justify-content/align-content -> Nos permite alinhar o próprio grid, relativo ao espaço fora do grid. O uso dessa propriedade é meio rara, pois só é usada quando definimos os columns e rows com px.
+. justify-items/align-items -> Nos permite alinhar os itens do nosso grid. End, center, start e stretch.
+. justify-self/align-self-> Nos permite alinhar os filhos apenas, ao invés do grid inteiro. Se você utilizar classes para filhos específicos, você pode alterá-los.
+
+*/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #7159C1;
+}
+
+
+
+
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 3----- Cria 2 colunas. O fr significa que as colunas serão flex. Uma coluna é 2fr, e a outra é 1fr. Isso significa que a primeira coluna será o dobro da outra.  */
+    grid-template-rows: 20vh 70vh 10vh; /* Cria 3 linhas. */
+    /* 4----- Nós não vamos utilizar o grid-gap por questoes estéticas, mas ele funciona assim:
+    grid-gap: 20px; Dá um espaçamento entre as colunas e as linhas de 20px. Você pode dar espaçamento diferentes para colunas e linhas, aplicando dois valores. Por exemplo: 20px 5px espaça as linhas em 20px e 5px entre as colunas.
+    grid-gap é um atalho para grid-row-gap (que separa as linhas) e grid-column-gap (que sepaar as colunas)
+    */
+    grid-template-areas: "h h"  
+                         "m a" 
+                         "f f";  
+    /* 6----- Você cria templates para as suas áreas. Por exemplo, h significa header, e eu quero que o header ocupe toda a área de cima do meu site. Abaixo, eu quero o main ao lado do aside, e abaixo, meu footer. */
+}
+
+
+
+
+
+header {
+    background: yellow;
+    /* 5----- No html, pensando no horizontal, ou, nas colunas, temos 3 linhas virtuais, imaginárias: Uma no começo, outra no meio, e outra no fim. (main e aside)
+    _________
+    |   |   |
+    |   |   |
+    |   |   |
+    ---------
+
+    Agora, pensando na vertical, ou, nas linhas, temos 4 linhas virtuais: Onde começa o header, onde acaba o header e ao mesmo tempo começa o main, onde acaba o main e ao mesmo tempo começa o footer, e onde acaba o footer.
+    __________
+    |________|
+    |        |
+    |        |
+    |________|
+    |________|
+
+    Para posicionar os elementos utilizando essas linhas virtuais e os grid-column e grid-row, é fácil:
+    Num elemento, dizer que ele tem grid-column-start: 1 e grid-column-end: 3, é o mesmo que dizer que ele ocupara 100% de largura da página. E assim funciona também com o grid-row-start e end (claro que são propriedades inversas para rows e columns). Você pode simplicar isso. Por exemplo, ajustando as linhas. Coloque grid-row: a/b. Isto significa que a linha em questão começara na linha virtual a e terminará na linha virtual b.
+    Tem um jeito ainda mais simples de fazer isto utilizando as grid-template-areas.
+
+    */
+
+    /* 7----- Em cada item colocamos o grid-area. */
+    grid-area: h;
+}
+
+main {
+    background-color: blue;
+    grid-area: m;
+}
+
+aside {
+    background: green;
+    grid-area: a;
+}
+
+footer {
+    background: red;
+    grid-area: f;
+}
