@@ -16,7 +16,7 @@ h1 {
 
 .green {
     color: greenyellow;
-    text-shadow: 1px 1px 10px greenyellow;
+    text-shadow: 1px 1px 20px greenyellow;
 }
 
 .flexbox {
@@ -31,7 +31,7 @@ h1 {
 
 .green-small {
     background-color: greenyellow;
-    box-shadow: 1px 1px 10px greenyellow;
+    box-shadow: 1px 1px 20px greenyellow;
     height: 140px;
     width: 120px;
     margin: 10px;
@@ -40,7 +40,7 @@ h1 {
 
 .green-med {
     background-color: greenyellow;
-    box-shadow: 1px 1px 10px greenyellow;
+    box-shadow: 1px 1px 20px greenyellow;
     width: 260px;
     height: 140px;
     margin: 10px;
@@ -49,7 +49,7 @@ h1 {
 
 .green-large {
     background-color: greenyellow;
-    box-shadow: 1px 1px 10px greenyellow;
+    box-shadow: 1px 1px 20px greenyellow;
     width: 540px;
     height: 140px;
     margin: 10px;
@@ -62,9 +62,44 @@ h1 {
 
 .purple {
     color: blueviolet;
-    text-shadow: 1px 1px 10px blueviolet;
+    text-shadow: 1px 1px 20px blueviolet;
 }
 
 .grid-layout {
-    height: 100vh;
+    margin: auto;
+    width: 43vw;
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "l1 l1 s1 s2"
+                         "l1 l1 l2 l2"
+                         "m m l2 l2";
+    grid-gap: 35px;
+}
+
+.purple-block {
+    background-color: blueviolet;
+    border-radius: 10px;
+    box-shadow: 1px 1px 20px blueviolet;
+}
+
+.large1 {
+    grid-area: l1;
+}
+
+.small1 {
+    grid-area: s1;
+}
+
+.small2 {
+    grid-area: s2;
+}
+
+.medium {
+    grid-area: m;
+}
+
+.large2 {
+    grid-area: l2;
 }
