@@ -1,39 +1,38 @@
 /*
 
 LAYOUT FIXO
-
-  Usa medidas brutas, que não são automáticamente ajustadas. Por exemplo, o px.
+px -> Pixels.
 
 LAYOUT FLUÍDO
+% -> Porcentagem.
+auto -> Automático. Bom para heights e margins.
+vh -> Viewport Height. Viewport é o que você vê em determinado positivo. 100vh é como se fosse 100% da viewport height.
+vw - Viewport Width.
 
-  Usa medidas flexíveis, muitas vezes ajustadas automaticamente.
-  %
-  auto
-  vh (ViewportHeight) - De 0 à 100. Altura do display, da parte visível da tela. Por exemplo, se você tiver uma div com 100vh, essa div ocupará a sua tela inteira. Se houver mais elementos, você só conseguirá visualizá-los se você der um scroll no mouse, ou abaixar a tela do celular.
-  vw (ViewportWidth)
+TEXTO FIXO (As medidas aqui citadas não aplciam-se somente a textos)
+pt -> Pontos
+1px = 0.75pt
+16px = 12pt  (Textos tem por padrão, na maioria dos navegadores, 16px)
 
-TEXTOS FIXOS
-
-  1px = 0.75px
-  16px (geralmente é o tamanho padrão utilizado pelos navegadores) = 12pt
-
-TEXTOS FLUÍDOS
-
-  em (Não somente para textos) - Multiplcado pelo pai. Por exemplo, imagine que você atribuiu um font-size ao header de 10px. Esse header contém um a. Se você colocar a font-size desse a de 1em, esse a terá um font-size de 10px. Se vocÊ colocar de 2em, terá 20px.
-  rem - Multiplicado pelo root (paizão, no caso o body, ou o html, ou o "pai máximo")
-
-TAG META
-
-  Sempre utilize a tag meta de responsividade no HTML.
+TEXTO FLUÍDO
+em -> Multiplicado sempre pelo pai. Por exemplo: Uma "ul" com 16px. Se um "li" tem 1em, ele terá 16px. Se o "li" tem 2em, 32px.
+rem -> Multiplicado pelo root. Root seria o "pai principal", o primeiro pai (que por padrão tem 16px).
 
 BREAKPOINTS
+São os pontos de quebra do layout. Aqueles pontos que você precisa dar uma alterada específica. Você pode vê-los pelo devtools dos navegadores, na parte que mostra os tamanhos dos dispositivos. Você pode ver também "a olho". Para acessá-los diretamente, use media queries. Preste também atenção na ordem em que você coloca os mediaqueries, pois um pode "tampar" o outro. Veja o item 3, pois tem muita informação lá.
 
-  Quanto mais breakpoints, melhor sua responsividade.
+FLEX E GRID
+Eles também dispões elementos automaticamente. Use e abuse de flex-row, flex, grid, etc.
+
+IMAGENS
+Se tiver um dispositivo pequeno, você não precisa de uma imagem grande. Então, você pode definir no html, qual imagem colocar quando a tela tiver tal resolução. Por exemplo:
+
+<picture>
+  <source media="(min width: 768px)" srcset="link">
+  <source media="(min width: 408px)" srcset="link">
+</picture>
+
 */
-
-  
- 
-
 
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 
@@ -45,19 +44,19 @@ BREAKPOINTS
 }
 
 html {
-  /*Já que 62.5% de 16px é 10px, a cada 1rem será considerado 10px. */
-  font-size: 62.5%;
+  font-size: 62.5%; /*2- Vai ter 62.5% de 16px, ou seja, vai ter 10px. Se você mudar esta porcentagem, todos os outros elementos que estiverem com rem também será mudado, sendo assim uma ótima estratégia para responsividade.*/
 }
 
+body {
+  font-size: 1.6rem; /*3- Vai ter 16px.*/
+}
+
+html,
 body {
   height: 100vh;
   font-family: "Source Sans Pro";
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
-}
-
-body {
-  font-size: 1.6rem;
 }
 
 header {
@@ -68,8 +67,8 @@ header .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 90%;  /* Ao invés de colocar apenas uma largura de 980px, coloque a largura máxima de 980px e uma largura de 90%. Assim, em telas maiores, ele vai manter o container com uma largura máxima de 980px, mas em telas enores o container ocupará 90%. */
-  max-width: 980px;  
+  width: 90%; /*1- Sempre vai ocupar 90%, mas, ele para de se adaptar quando submetido a uma largura superior a 980px*/
+  max-width: 980px;
   margin: auto;
 }
 
@@ -138,10 +137,9 @@ section.hero {
 }
 
 section.hero .container {
-  width: 90%;
   max-width: 980px;
   margin: auto;
-
+  width: 90%;
   display: flex;
 }
 
@@ -153,23 +151,23 @@ section.hero p {
 }
 
 
-
 /*=============== 
 MAIN
 ==================*/
 main {
   margin-bottom: 80px;
 }
+
+
 /*=============== 
 CARDS
 ==================*/
 .cards {
-  width: 90%;
   max-width: 980px;
   margin: auto;
-
+  width: 90%;
   display: grid;
-  grid-template-columns: 310px 310px 310px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /*5- A grid terá quantas colunas couber (auto-fit). Ela sempre terá uma largura mínima de 250px, e ela não terá um máximo, o máximo dela é ser sempre flexível (obviamente, respeitando as widths e max-widths acima).*/
   grid-gap: 20px;
 }
 
@@ -196,7 +194,6 @@ CARDS
 .image {
   width: 100%;
   padding-top: 56.25%; /* 16:9 */
-
   overflow: hidden;
   position: relative;
 }
@@ -257,34 +254,25 @@ MODAL
   align-items: center;
   justify-content: center;
   position: relative;
-  
   background-color: #fff;
-  
   width: 800px;
   height: 400px;
-  
   margin: 0 auto;
   padding: 10px;
-  
   border-radius: 3px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  
   opacity: 0;
   overflow-y: auto;
   visibility: hidden;
-  
   transition: all 0.6s cubic-bezier(0.55, 0, 0.1, 1);
   transform: scale(1.2);
 }
 .modal .close-modal {
   position: absolute;
   cursor: pointer;
-
   top: 5px;
   right: 15px;
-  
   opacity: 0;
-  
   transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
   transition-delay: 0.3s;
 }
@@ -330,7 +318,6 @@ MODAL
 }
 
 
-
 /*=============== 
 FORM
 ==================*/
@@ -347,12 +334,10 @@ FORM
 }
 
 #form form {
-  width: 90%;
   max-width: 980px;
+  width: 90%;
   background: white;
-  
   padding: 40px;
-  
   box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.15), 
     0px 10px 20px -10px rgba(0, 0, 0, 0.1)
 }
@@ -387,4 +372,106 @@ FORM
 
 #form .button {
   margin: 20px 8px 10px;
+}
+
+
+/*MEDIA QUERIES*/
+
+@media (max-width: 768px) { /*3- Dispositivos que tiverem 768px ou menos de largura terão essa configuraão. Você pode adicionar algumas outras configurações por exemplo: 
+  @media (max-width: 768px) and (min-width: 700px) -> isto faz com que todas as telas entre essas configurações recebam esses estilos.
+  Você também pode colocar print que é para impressoras, etc.
+*/
+  html { 
+    font-size: 50%;
+  }
+}
+
+@media (max-width: 630px) {
+  .hero .container {
+    flex-direction: column; /*6- Tava um do lado do outro, só que por estar estyranho, deixamos um embaixo do outro.*/
+    text-align: center;
+  }
+
+  .hero .container img {
+    order: -1; /*7- Inverte. Estava embaixo, ficou em cima.*/
+  }
+
+  .form-group {
+    display: block; /*8- Faz com que cada elemento fique um embaixo do outro.*/
+  }
+}
+
+@media (max-width: 540px) {
+  nav {
+    display: none;
+  }
+
+  .one, /*9- Esse é o "hamburguer". Só aperece para essa resolução.*/
+  .two,
+  .three {
+    background-color: #fff;
+    height: 5px;
+    width: 100%;
+    margin: 6px auto;
+    transition-duration: 0.3s;
+  }
+
+  .menu-toggle { 
+    width: 40px;
+    height: 30px;
+    margin-right: 20px;
+  }
+
+  .menu-section.on { /*10- Essa configuração aparece quando o menu ficar on, ou seja, quando for clicado.*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #7159c1;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-section.on nav {
+    display: block;
+  }
+
+  .menu-section.on .menu-toggle {
+    position: absolute;
+    right: 25px;
+    top: 15px;
+  }
+
+  .menu-section.on .menu-toggle .one { /*11- A primeira barrinha do hamburguer, quando for clicada. */
+    transform: rotate(45deg) translate(7px, 7px); /*Para parecer um x, rotaciona a primeira barrinha, e por isso, ela sai um pouco do eixo. Ai arrumamos 7px no eixo x e 7px no eixo y.*/
+  }
+
+  .menu-section.on .menu-toggle .two { /*12- A segunda barrinha do hamburguer, quando for clicada. */
+    opacity: 0;; /*Para parecer um x, deixamos invisível. Não de display none, pois depois queremos fazer transição.*/
+  }
+
+  .menu-section.on .menu-toggle .three { /*13- A terceira barrinha do hamburguer, quando for clicada. */
+    transform: rotate(-45deg) translate(8px, -9px); /*Para parecer um x, é o inverso da primeira barrinha.*/
+  }
+
+  .menu-section.on nav ul {
+    text-align: center;
+    display: block;
+  }
+
+  .menu-section.on nav ul a {
+    transition-duration: 0.5s;
+    font-size: 3rem;
+    line-height: 4rem;
+    display: block;
+  }
+}
+
+@media (max-width: 320px) {
+  #form h3 {
+    font-size: 2rem;
+  }
 }
