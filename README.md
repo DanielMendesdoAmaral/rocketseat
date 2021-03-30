@@ -1,1 +1,1 @@
-# rocketseat-masterclass8-responsividade
+Vídeos-aulas/exercícios da Rocketseat.
